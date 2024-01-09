@@ -19,7 +19,7 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         var binding:ActivityLoginBinding=DataBindingUtil.setContentView(this,R.layout.activity_login)
         binding.vm=myViewmodel
-        binding.re.adapter=RecyclerAdapter()
+//        binding.re.adapter=RecyclerAdapter()
         binding.lifecycleOwner=this
 
     }

@@ -11,8 +11,13 @@ object BindingAdapter
 {
     @BindingAdapter("ItemList")
     @JvmStatic
-    fun test(view: RecyclerView, items: List<User?>) {
-        val adapter: RecyclerAdapter = view.adapter as RecyclerAdapter
+    fun RecyclerView?.test(items: List<User?>) {
+        this ?: return
+        val adapter = (adapter as? RecyclerAdapter) ?: RecyclerAdapter()
+            .apply {
+                adapter=this
+            }
+//        val adapter: RecyclerAdapter = view.adapter as RecyclerAdapter
         adapter.submitList(items)
     }
 }
