@@ -8,6 +8,7 @@ import androidx.databinding.DataBindingUtil
 import com.gy25m.architecturepr.R
 import com.gy25m.architecturepr.adapter.RecyclerAdapter
 import com.gy25m.architecturepr.databinding.ActivityLoginBinding
+import com.gy25m.architecturepr.databinding.ActivityMainBinding
 import com.gy25m.architecturepr.viewmodel.LoginViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -15,11 +16,11 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private val myViewmodel:LoginViewModel by viewModels()
+    val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var binding:ActivityLoginBinding=DataBindingUtil.setContentView(this,R.layout.activity_login)
+        setContentView(binding.root)
         binding.vm=myViewmodel
-//        binding.re.adapter=RecyclerAdapter()
         binding.lifecycleOwner=this
 
     }
