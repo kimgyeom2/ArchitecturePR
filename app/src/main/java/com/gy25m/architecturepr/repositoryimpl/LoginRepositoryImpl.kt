@@ -13,7 +13,7 @@ class LoginRepositoryImpl @Inject constructor(
     private val database: AppDatabase
     ):LoginRepository {
 
-    override fun getData(): Single<List<User>> = apiService.getJson()
+    override suspend fun getData(): List<User> = apiService.getJson()
 
     override fun saveData(user: LoginEntity) {
         database.userDao().insert(user)

@@ -11,7 +11,10 @@ import com.gy25m.architecturepr.usecase.LoginUsecase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers
 import io.reactivex.rxjava3.schedulers.Schedulers
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -20,18 +23,22 @@ class LoginViewModel @Inject constructor(private val loginUsecase: LoginUsecase)
     var content:MutableLiveData<List<User>> = MutableLiveData(listOf())
 
 
-    fun btnClick(){
-           var cc= loginUsecase.useCaseGetApi()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({
-                    content.value=it
-                },{})
-
+    fun btnClick() {
+        viewModelScope.launch {
+            try {
+                val cc = withContext(Dispatchers.IO) { loginUsecase.useCaseGetApi() }
+                content.value = cc
+            } catch (e: Exception) {
+                // 에러 처리
+            }
+        }
     }
 
     fun saveData(){
-        loginUsecase.saveData()
+        viewModelScope.launch(Dispatchers.IO){
+            loginUsecase.saveData()
+        }
+
     }
 
 

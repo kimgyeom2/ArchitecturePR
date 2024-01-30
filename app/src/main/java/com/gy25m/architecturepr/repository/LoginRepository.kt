@@ -8,7 +8,7 @@ import javax.inject.Inject
 
 interface LoginRepository  {
 
-    fun getData():Single<List<User>>
+    suspend fun getData():List<User>
 
     fun saveData(user: LoginEntity)
 }

@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface ApiService {
     @GET("posts")
-    fun getJson():Single<List<User>>
+    suspend fun getJson():List<User>
 
 }
